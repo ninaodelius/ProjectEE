@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FlashModelRepository extends JpaRepository<FlashModel, Long> {
-
+    FlashModel findByUsername(String username);
 }
