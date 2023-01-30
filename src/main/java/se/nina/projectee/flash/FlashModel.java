@@ -23,7 +23,6 @@ public class FlashModel implements UserDetails {
     @Size(min = 2, max = 20)
     private String name;
 
-    //
     @NotEmpty
     @Size(min = 2, max = 50)
     @Email
@@ -53,10 +52,6 @@ public class FlashModel implements UserDetails {
         this.isEnabled = isEnabled;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -65,7 +60,6 @@ public class FlashModel implements UserDetails {
     public String getUsername() {
         return username;
     }
-
 
     public void setUsername(String username) {
         this.username = username;
@@ -91,6 +85,24 @@ public class FlashModel implements UserDetails {
     public void setAuthorities(List<String> authorities) {
         this.authorities = authorities;
     }
+
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        isAccountNonExpired = accountNonExpired;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        isAccountNonLocked = accountNonLocked;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        isCredentialsNonExpired = credentialsNonExpired;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
 
 
     @Override
