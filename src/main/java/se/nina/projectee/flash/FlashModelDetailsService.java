@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FlashModelDetailsService implements UserDetailsService {
 
@@ -19,5 +21,13 @@ public class FlashModelDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return flashModelRepository.findByUsername(username);
+    }
+
+    public void save(FlashModel flashModel){
+        flashModelRepository.save(flashModel);
+    }
+
+    public List<FlashModel> findAll(){
+    return flashModelRepository.findAll();
     }
 }

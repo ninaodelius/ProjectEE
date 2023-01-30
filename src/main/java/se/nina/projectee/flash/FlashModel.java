@@ -52,9 +52,6 @@ public class FlashModel implements UserDetails {
         this.isEnabled = isEnabled;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public String getUsername() {
@@ -86,7 +83,6 @@ public class FlashModel implements UserDetails {
         this.authorities = authorities;
     }
 
-
     public void setAccountNonExpired(boolean accountNonExpired) {
         isAccountNonExpired = accountNonExpired;
     }
@@ -103,15 +99,12 @@ public class FlashModel implements UserDetails {
         isEnabled = enabled;
     }
 
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorityList = new ArrayList<>();
 
         return null;
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
