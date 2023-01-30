@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import se.nina.projectee.flash.FlashModelDetailsService;
 
+import java.util.concurrent.TimeUnit;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -33,6 +35,17 @@ public class AppSecurityConfig {
                             .authenticated()
                             ;
                 })
+                .formLogin( formlogin ->{
+                            formlogin.loginPage("/login");
+                        }
+                )
+                .rememberMe( rememberMe -> {
+                            rememberMe.rememberMeParameter("remember-me-token")
+                                    .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21)) // 3 weeks
+                                    .key("SomeSecureKey")
+                                    .userDetailsService(flashModelDetailsService);
+                        }
+                )
                 .authenticationProvider(authenticationOverride());
         return http.build();
     }
