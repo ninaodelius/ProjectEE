@@ -25,7 +25,11 @@ public class AppSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests( requests -> {
-                    requests.requestMatchers("/home").permitAll();
+                    requests.requestMatchers("/", "/login", "/signup", "/logout").permitAll()
+                            .requestMatchers("/admin").hasRole("ADMIN")
+                            .requestMatchers("/flash").hasRole("FLASH")
+                            .anyRequest()
+                            .authenticated();
                 });
 
         return http.build();
