@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import se.nina.projectee.flash.FlashModel;
 import se.nina.projectee.flash.FlashModelDetailsService;
-import se.nina.projectee.flash.FlashModelRepository;
 
 @Controller
 @RequestMapping
@@ -18,11 +17,9 @@ public class AppController {
 
 
     private final FlashModelDetailsService flashModelDetailsService;
-    private final FlashModelRepository flashModelRepository;
 
-    public AppController(FlashModelDetailsService flashModelDetailsService, FlashModelRepository flashModelRepository) {
+    public AppController(FlashModelDetailsService flashModelDetailsService) {
         this.flashModelDetailsService = flashModelDetailsService;
-        this.flashModelRepository = flashModelRepository;
     }
 
     @GetMapping("/home")
@@ -40,11 +37,14 @@ public class AppController {
     @PostMapping("/signup")
     public String saveNewFlash(@Valid FlashModel flashModel, BindingResult result, Model model){
 
+        if(result.hasErrors()){
+            return "signup";
+        }
 
-        /*flashModel.setAccountNonExpired(true);
+        flashModel.setAccountNonExpired(true);
         flashModel.setAccountNonLocked(true);
         flashModel.setCredentialsNonExpired(true);
-        flashModel.setEnabled(true);*/
+        flashModel.setEnabled(true);
 
         flashModelDetailsService.save(flashModel);
 
@@ -53,5 +53,10 @@ public class AppController {
         //redirect to startpage to prevent duplicate submissions
         return "redirect:/";
     }
+
+    /*@PostMapping("/login")
+    public String login(){
+        return "login";
+    }*/
 
 }

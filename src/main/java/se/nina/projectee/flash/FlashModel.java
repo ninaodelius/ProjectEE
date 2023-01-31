@@ -99,6 +99,8 @@ public class FlashModel implements UserDetails {
         isEnabled = enabled;
     }
 
+
+    //FRÅGA KRILLINATOR
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorityList = new ArrayList<>();

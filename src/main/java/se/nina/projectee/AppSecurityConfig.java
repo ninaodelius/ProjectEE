@@ -36,7 +36,8 @@ public class AppSecurityConfig {
                             ;
                 })
                 .formLogin( formlogin ->{
-                            formlogin.loginPage("/login");
+                            formlogin.loginPage("/login")
+                                    .usernameParameter("username");
                         }
                 )
                 .rememberMe( rememberMe -> {
@@ -44,6 +45,14 @@ public class AppSecurityConfig {
                                     .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21)) // 3 weeks
                                     .key("SomeSecureKey")
                                     .userDetailsService(flashModelDetailsService);
+                        }
+                )
+                .logout( logout ->{
+                            logout.logoutUrl("/logout")
+                                    .invalidateHttpSession(true)
+                                    .clearAuthentication(true)
+                                    .deleteCookies("JSESSIONID", "remember-me-token")
+                                    .logoutSuccessUrl("/login");
                         }
                 )
                 .authenticationProvider(authenticationOverride());
