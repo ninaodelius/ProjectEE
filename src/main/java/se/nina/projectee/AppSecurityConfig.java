@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import se.nina.projectee.flash.AppPasswordConfig;
 import se.nina.projectee.flash.FlashModelDetailsService;
 
 import java.util.concurrent.TimeUnit;
@@ -18,10 +19,12 @@ import java.util.concurrent.TimeUnit;
 public class AppSecurityConfig {
 
     private final FlashModelDetailsService flashModelDetailsService;
+    private final AppPasswordConfig bcrypt;
 
     @Autowired
-    public AppSecurityConfig(FlashModelDetailsService flashModelDetailsService){
+    public AppSecurityConfig(FlashModelDetailsService flashModelDetailsService, AppPasswordConfig bcrypt){
         this.flashModelDetailsService = flashModelDetailsService;
+        this.bcrypt = bcrypt;
     }
 
     @Bean
@@ -63,6 +66,7 @@ public class AppSecurityConfig {
     public DaoAuthenticationProvider authenticationOverride(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(flashModelDetailsService);
+        provider.setPasswordEncoder(bcrypt.bCryptPassword());
         return provider;
     }
 

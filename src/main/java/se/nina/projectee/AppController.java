@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import se.nina.projectee.flash.AppPasswordConfig;
 import se.nina.projectee.flash.FlashModel;
 import se.nina.projectee.flash.FlashModelDetailsService;
 
@@ -17,9 +18,11 @@ public class AppController {
 
 
     private final FlashModelDetailsService flashModelDetailsService;
+    private final AppPasswordConfig appPasswordConfig;
 
-    public AppController(FlashModelDetailsService flashModelDetailsService) {
+    public AppController(FlashModelDetailsService flashModelDetailsService, AppPasswordConfig appPasswordConfig) {
         this.flashModelDetailsService = flashModelDetailsService;
+        this.appPasswordConfig = appPasswordConfig;
     }
 
     @GetMapping("/home")
@@ -40,7 +43,7 @@ public class AppController {
         if(result.hasErrors()){
             return "signup";
         }
-
+        flashModel.setPassword(appPasswordConfig.bCryptPassword().encode(flashModel.getPassword()));
         flashModel.setAccountNonExpired(true);
         flashModel.setAccountNonLocked(true);
         flashModel.setCredentialsNonExpired(true);
