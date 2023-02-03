@@ -18,9 +18,9 @@ import se.nina.projectee.flash.auth.FlashRoles;
 public class AppController {
 
 
-
     private final FlashModelDetailsService flashModelDetailsService;
     private final AppPasswordConfig appPasswordConfig;
+
 
     public AppController(FlashModelDetailsService flashModelDetailsService, AppPasswordConfig appPasswordConfig) {
         this.flashModelDetailsService = flashModelDetailsService;

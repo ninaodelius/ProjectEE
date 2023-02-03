@@ -24,6 +24,8 @@ public class AppViewConfig implements WebMvcConfigurer {
         registry.addViewController("/flash").setViewName("flashPage");
         registry.addViewController("/admin").setViewName("adminPage");
         registry.addViewController("/logout").setViewName("logout");
+        registry.addViewController("/weather").setViewName("weather");
+
 
     }
 }
