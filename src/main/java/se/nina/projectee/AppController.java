@@ -13,6 +13,8 @@ import se.nina.projectee.flash.FlashModel;
 import se.nina.projectee.flash.FlashModelDetailsService;
 import se.nina.projectee.flash.auth.FlashRoles;
 
+import java.util.List;
+
 @Controller
 //@CrossOrigin(value = "localhost:3000")
 public class AppController {
@@ -50,7 +52,6 @@ public class AppController {
     }
 
 
-
     @PostMapping("/signup")
     public String saveNewFlash(@Valid FlashModel flashModel, BindingResult result, Model model){
 
@@ -81,13 +82,15 @@ public class AppController {
         return "redirect:/";
     }
 
-    /*@PostMapping("/login")
-    public String login(){
-        return "login";
-    }*/
     @GetMapping("/admin")
     //@PreAuthorize("hasrole('ROLE_ADMIN')")
-    public String displayAdmin(){
+    public String displayAdmin(Model theModel){
+
+        List<FlashModel> theFlashes = flashModelDetailsService.findAll();
+
+        theModel.addAttribute("flashes", theFlashes);
+
+
         return "adminPage";
     }
 

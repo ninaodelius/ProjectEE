@@ -8,6 +8,21 @@
 <body>
 <h1>ban the world today,  <div th:text="${#authentication.principal.name}"></div>! </h1>
 
+<h1>Flash List</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Username</th>
+    </tr>
+    <tr th:each="flash : ${flashes}">
+        <td th:text="${flash.name}"></td>
+        <td th:text="${flash.username}"></td>
+        <td th:text="${flash.authorities}"></td>
+
+    </tr>
+</table>
+
 <form method="post" th:action="@{/logout}">
     <button class="btn btn-primary btn-sm" type="submit" value="Logout">log out</button>
 </form>
