@@ -7,7 +7,12 @@
     <title>FLASH</title>
 </head>
 <body>
-<h1>Hello flishyflashy</h1>
+<h1>Hello,  <div th:text="${#authentication.principal.name}"></div> </h1>
+
+
+
+
+
 <a th:href="@{/weather}"
    class="btn btn-primary btn-sm">
     weather</a>

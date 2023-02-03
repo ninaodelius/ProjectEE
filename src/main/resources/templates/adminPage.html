@@ -6,7 +6,7 @@
     <title>Admin</title>
 </head>
 <body>
-<h1>ban the world</h1>
+<h1>ban the world today,  <div th:text="${#authentication.principal.name}"></div>! </h1>
 
 <form method="post" th:action="@{/logout}">
     <button class="btn btn-primary btn-sm" type="submit" value="Logout">log out</button>
