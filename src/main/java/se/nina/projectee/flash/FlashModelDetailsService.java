@@ -21,9 +21,10 @@ public class FlashModelDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public FlashModel loadUserByUsername(String username) throws UsernameNotFoundException {
         return flashModelDAO.findUser(username);
     }
+
 
     public void save(FlashModel flashModel){
         flashModelDAO.save(flashModel);

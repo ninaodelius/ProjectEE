@@ -1,31 +1,36 @@
 package se.nina.projectee.flash.auth;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static se.nina.projectee.flash.auth.FlashPermissions.*;
 
 public enum FlashRoles {
-    FLASH(List.of(FLASH_READ)),
-    ADMIN(List.of(ADMIN_READ, ADMIN_WRITE));
-    private final List<FlashPermissions> permissions;
-    FlashRoles(List<FlashPermissions> permissions) {
+    FLASH(Set.of(FLASH_READ)),
+    ADMIN(Set.of(ADMIN_READ, ADMIN_WRITE));
+    private final Set<FlashPermissions> permissions;
+    FlashRoles(Set<FlashPermissions> permissions) {
         this.permissions = permissions;
     }
-    public List<FlashPermissions> getPermissions() {
+    public Set<FlashPermissions> getPermissions() {
         return permissions;
     }
 
     //create one role with both role and permissions
-    public List<String> getGrantedAuthorities() {
+    public Set<SimpleGrantedAuthority> getGrantedAuthorities() {
 
         //for loop with streams
-        List<String> permissionsList = new ArrayList<>(getPermissions().stream().map(
-                FlashPermissions::getUserPermission
-        ).toList());
+        Set<SimpleGrantedAuthority> permissionsList = getPermissions().stream().map(
+                index -> new SimpleGrantedAuthority(index.getUserPermission())
+        ).collect(Collectors.toSet());
 
         //when finished: add role (ex. ROLE_ADMIN)
-        permissionsList.add(("ROLE_" + this.name()));
+        permissionsList.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
         return permissionsList;
     }
 }

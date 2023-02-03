@@ -5,11 +5,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "flashes")
@@ -29,10 +31,11 @@ public class FlashModel implements UserDetails {
     private String username;
 
     @NotEmpty
-    @Size(min = 6, max = 20)
+    @Size(min = 6, max = 200)
     private String password;
 
-    private List<String> authorities;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<SimpleGrantedAuthority> authorities;
 
     private boolean isAccountNonExpired ;
     private boolean isAccountNonLocked ;
@@ -41,7 +44,7 @@ public class FlashModel implements UserDetails {
 
     public FlashModel(){}
 
-    public FlashModel(String name, String username, String password, List<String> authorities, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
+    public FlashModel(String name, String username, String password, Set<SimpleGrantedAuthority> authorities, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -79,7 +82,7 @@ public class FlashModel implements UserDetails {
         this.name = name;
     }
 
-    public void setAuthorities(List<String> authorities) {
+    public void setAuthorities(Set<SimpleGrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 
@@ -99,13 +102,10 @@ public class FlashModel implements UserDetails {
         isEnabled = enabled;
     }
 
-
-    //FRÅGA KRILLINATOR
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorityList = new ArrayList<>();
 
-        return null;
+        return authorities;
     }
 
     @Override
@@ -126,5 +126,21 @@ public class FlashModel implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isEnabled;
+    }
+
+    //this for testing
+    @Override
+    public String toString() {
+        return "FlashModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", authorities=" + authorities +
+                ", isAccountNonExpired=" + isAccountNonExpired +
+                ", isAccountNonLocked=" + isAccountNonLocked +
+                ", isCredentialsNonExpired=" + isCredentialsNonExpired +
+                ", isEnabled=" + isEnabled +
+                '}';
     }
 }

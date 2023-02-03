@@ -7,7 +7,7 @@ import java.util.List;
 public interface IFlashModelDAO<T> {
 
     FlashModel findUser(String username);
-    void save(T t);
+    void save(FlashModel flashmodel);
     void update(T t, Long l);
     void delete(T t, Long l);
 

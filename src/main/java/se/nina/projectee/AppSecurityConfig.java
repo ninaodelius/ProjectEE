@@ -30,8 +30,9 @@ public class AppSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
+                //.csrf().disable()
                 .authorizeHttpRequests( requests -> {
-                    requests.requestMatchers("/", "/login", "/signup", "/logout", "/static/**", "/save").permitAll()
+                    requests.requestMatchers("/", "/login", "/signup", "/logout", "/static/**", "/save", "/find/**").permitAll()
                             .requestMatchers("/admin").hasRole("ADMIN")
                             .requestMatchers("/flash").hasRole("FLASH")
                             .anyRequest()
@@ -39,8 +40,7 @@ public class AppSecurityConfig {
                             ;
                 })
                 .formLogin( formlogin ->{
-                            formlogin.loginPage("/login")
-                                    .usernameParameter("username");
+                            formlogin.loginPage("/login");
                         }
                 )
                 .rememberMe( rememberMe -> {
