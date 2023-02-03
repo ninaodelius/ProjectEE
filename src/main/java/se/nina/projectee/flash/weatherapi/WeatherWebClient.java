@@ -6,4 +6,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class WeatherWebClient {
     WebClient webClient = WebClient.create("https://goweather.herokuapp.com/weather/stockholm");
+
+    // https://github.com/public-apis/public-apis#weather
+    // https://github.com/robertoduessmann/weather-api
 }
