@@ -52,10 +52,10 @@ public class AppSecurityConfig {
                 )
                 .logout( logout ->{
                             logout.logoutUrl("/logout")
+                                    .logoutSuccessUrl("/login")
                                     .invalidateHttpSession(true)
                                     .clearAuthentication(true)
-                                    .deleteCookies("JSESSIONID", "remember-me-token")
-                                    .logoutSuccessUrl("/login");
+                                    .deleteCookies("remember-me-token", "JSESSIONID");
                         }
                 )
                 .authenticationProvider(authenticationOverride());

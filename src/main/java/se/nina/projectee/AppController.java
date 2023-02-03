@@ -1,11 +1,13 @@
 package se.nina.projectee;
 
 import jakarta.validation.Valid;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import se.nina.projectee.flash.AppPasswordConfig;
 import se.nina.projectee.flash.FlashModel;
 import se.nina.projectee.flash.FlashModelDetailsService;
@@ -31,12 +33,6 @@ public class AppController {
     }
 
 
-    @GetMapping("/signup")
-    public String showSaveNewFlash(FlashModel flashModel){
-
-        return "signup";
-    }
-
     @GetMapping("/find/{username}")
     @ResponseBody
     public FlashModel findByUsername(@PathVariable String username) {
@@ -45,6 +41,15 @@ public class AppController {
 
         return flashModelDetailsService.loadUserByUsername(username);
     }
+
+
+    @GetMapping("/signup")
+    public String showSaveNewFlash(FlashModel flashModel){
+
+        return "signup";
+    }
+
+
 
     @PostMapping("/signup")
     public String saveNewFlash(@Valid FlashModel flashModel, BindingResult result, Model model){
@@ -62,8 +67,8 @@ public class AppController {
         String role = String.valueOf(flashModel.getAuthorities().iterator().next());
 
         switch (role) {
-            case "Admin" ->  flashModel.setAuthorities(FlashRoles.ADMIN.getGrantedAuthorities());
-            case "Flash" -> flashModel.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
+            case "ADMIN" ->  flashModel.setAuthorities(FlashRoles.ADMIN.getGrantedAuthorities());
+            case "FLASH" -> flashModel.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
         }
 
         //flashModel.setAuthorities(FlashRoles.ADMIN.getGrantedAuthorities());
