@@ -9,7 +9,8 @@ public interface IFlashModelDAO<T> {
     FlashModel findUser(String username);
     void save(FlashModel flashmodel);
     void update(T t, Long l);
-    void delete(T t, Long l);
+    void delete(Long l);
 
     List<FlashModel> findAll();
+    FlashModel findById(Long id);
 }

@@ -4,10 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import se.nina.projectee.flash.AppPasswordConfig;
 import se.nina.projectee.flash.FlashModel;
 import se.nina.projectee.flash.FlashModelDetailsService;
@@ -34,15 +31,6 @@ public class AppController {
         return "home";
     }
 
-
-    @GetMapping("/find/{username}")
-    @ResponseBody
-    public FlashModel findByUsername(@PathVariable String username) {
-
-        System.out.println(flashModelDetailsService.loadUserByUsername(username));
-
-        return flashModelDetailsService.loadUserByUsername(username);
-    }
 
 
     @GetMapping("/signup")
@@ -94,11 +82,50 @@ public class AppController {
         return "adminPage";
     }
 
-    @GetMapping("/flash")
-    //@PreAuthorize("hasrole('ROLE_FLASH')")
-    public String displayFlash(){
+    @GetMapping("/find/{username}")
+    @ResponseBody
+    public FlashModel findByUsername(@PathVariable String username) {
+
+        System.out.println(flashModelDetailsService.loadUserByUsername(username));
+
+        return flashModelDetailsService.loadUserByUsername(username);
+    }
+
+    @GetMapping()
+    public FlashModel findById(@RequestParam("id")Long id) {
+        return flashModelDetailsService.findById(id);
+    }
+
+    @GetMapping ("/delete")
+    public String delete(@RequestParam("id") Long id){
+        flashModelDetailsService.deleteById(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/flash/{id}")
+    public String displayFlashPage(@PathVariable("id") Long id, Model model){
+            FlashModel uModel = flashModelDetailsService.findById(id);
+
+             model.addAttribute("flashModel", uModel);
+
         return "flashPage";
     }
 
 
+
+    @PostMapping("/save")
+    public String updateInfo(@Valid FlashModel flashModel){
+
+        flashModel.setPassword(flashModel.getPassword());
+        flashModel.setAccountNonExpired(true);
+        flashModel.setAccountNonLocked(true);
+        flashModel.setCredentialsNonExpired(true);
+        flashModel.setEnabled(true);
+
+
+        flashModelDetailsService.save(flashModel);
+        return "flashPage";
+    }
+
 }
+

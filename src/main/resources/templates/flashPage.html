@@ -9,9 +9,35 @@
 <body>
 <h1>Hello,  <div th:text="${#authentication.principal.name}"></div> </h1>
 
+<!---
+<p>Update your info:</p>
+<form action="#" th:action="@{/save}"
+      th:object="${flashmodel}" method="post">
+
+    <input type="hidden" th:field="*{id}">
+
+    <input type="text" th:field="*{name}"
+           class="form-control mb-4 col-4" placeholder="name">
+    <input type="text" th:field="*{username}"
+           class="form-control mb-4 col-4" placeholder="email also used to sign in">
+    <input type="text" th:field="*{password}"
+           class="form-control mb-4 col-4" placeholder="password">
+
+    <button type="submit" class="btn btn-info col-2">update my info</button>
+
+</form>
+-->
 <a th:href="@{/weather}"
    class="btn btn-primary btn-sm">
     weather</a>
+
+<a th:href="@{/delete(id=${#authentication.principal.id})}"
+   class="btn btn-danger btn-sm"
+   onclick="if (!(confirm('Are you sure you want to delete your account?')))return false">
+    Delete
+</a>
+
+
 <form method="post" th:action="@{/logout}">
     <button class="btn btn-primary btn-sm" type="submit" value="Logout">log out</button>
 </form>

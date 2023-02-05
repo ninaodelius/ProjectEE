@@ -8,9 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,10 +35,26 @@ public class FlashModel implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<SimpleGrantedAuthority> authorities;
 
+    public Long getId() {
+        return id;
+    }
+
     private boolean isAccountNonExpired ;
     private boolean isAccountNonLocked ;
     private boolean isCredentialsNonExpired ;
     private boolean isEnabled ;
+
+    public FlashModel(Long id, String name, String username, String password, Set<SimpleGrantedAuthority> authorities, boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
+        this.isAccountNonExpired = isAccountNonExpired;
+        this.isAccountNonLocked = isAccountNonLocked;
+        this.isCredentialsNonExpired = isCredentialsNonExpired;
+        this.isEnabled = isEnabled;
+    }
 
     public FlashModel(){}
 

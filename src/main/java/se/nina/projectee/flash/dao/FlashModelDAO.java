@@ -6,6 +6,7 @@ import se.nina.projectee.flash.FlashModel;
 import se.nina.projectee.flash.FlashModelRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 //implementering av queries
 @Component
@@ -33,11 +34,28 @@ public class FlashModelDAO implements IFlashModelDAO<FlashModel>{
     }
 
     @Override
-    public void delete(FlashModel flashModel, Long id) {
-
+    public void delete(Long id) {
+    flashModelRepository.deleteById(id);
     }
+
     @Override
     public List<FlashModel> findAll() {
         return flashModelRepository.findAll();
+    }
+
+    @Override
+    public FlashModel findById(Long id){
+
+        Optional<FlashModel> result = flashModelRepository.findById(id);
+
+        FlashModel foundFlash;
+
+        if (result.isPresent()){
+         foundFlash=result.get();
+        }else{
+            throw new RuntimeException("Did not find id" + id);
+        }
+
+        return foundFlash;
     }
 }

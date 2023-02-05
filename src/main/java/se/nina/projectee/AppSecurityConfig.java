@@ -34,7 +34,7 @@ public class AppSecurityConfig {
                 .authorizeHttpRequests( requests -> {
                     requests.requestMatchers("/", "/login", "/signup", "/logout", "/static/**", "/save", "/find/**", "/weather").permitAll()
                             .requestMatchers("/admin").hasRole("ADMIN")
-                            .requestMatchers("/flash").hasRole("FLASH")
+                            .requestMatchers("/flash", "/delete","/save","/weather").hasRole("FLASH")
                             .anyRequest()
                             .authenticated()
                             ;

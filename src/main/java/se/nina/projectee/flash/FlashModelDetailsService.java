@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import se.nina.projectee.flash.dao.FlashModelDAO;
-import se.nina.projectee.flash.dao.FlashModelDTO;
 
 import java.util.List;
 
@@ -33,8 +32,18 @@ public class FlashModelDetailsService implements UserDetailsService {
     return flashModelDAO.findAll();
     }
 
+    /*
     private FlashModelDTO convertDataIntoDTO(FlashModel flashModel){
         return new FlashModelDTO(flashModel);
+    }*/
+
+    public void deleteById(Long id){
+        flashModelDAO.delete(id);
+    }
+
+    public FlashModel findById(Long id){
+
+        return flashModelDAO.findById(id);
     }
 
 
