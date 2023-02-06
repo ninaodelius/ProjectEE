@@ -52,22 +52,16 @@ public class AppController {
             case "FLASH" -> flashModel.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
         }
 
-        //flashModel.setAuthorities(FlashRoles.ADMIN.getGrantedAuthorities());
-
         flashModelDetailsService.save(flashModel);
-
-        //model.addAttribute("flashes", flashModelDetailsService.findAll()); //testar ta bort denna
 
         //redirect to startpage to prevent duplicate submissions
         return "redirect:/";
     }
 
     @GetMapping("/admin")
-    //@PreAuthorize("hasrole('ROLE_ADMIN')")
     public String displayAdmin(Model theModel){
 
         theModel.addAttribute("flashes", flashModelDetailsService.findAll());
-
 
         return "adminPage";
     }
@@ -93,28 +87,34 @@ public class AppController {
     }
 
     @GetMapping("/flash")
-    public String displayFlashPage(/*@RequestParam("id") Long id, Model model*/){
-            /*FlashModel uModel = flashModelDetailsService.findById(id);
+    public String displayFlashPage(){
 
-             model.addAttribute("flashModel", uModel);
-*/
         return "flashPage";
     }
 
 
+    @GetMapping("/update")
+    public String updateInfo(@RequestParam("id")Long id, Model model){
 
-    @PostMapping("/save")
-    public String updateInfo(@Valid FlashModel flashModel){
+        FlashModel theFlashModel = flashModelDetailsService.findById(id);
 
-        flashModel.setPassword(flashModel.getPassword());
-        flashModel.setAccountNonExpired(true);
-        flashModel.setAccountNonLocked(true);
-        flashModel.setCredentialsNonExpired(true);
-        flashModel.setEnabled(true);
+        model.addAttribute("flash", theFlashModel);
 
+        return "editFlash";
+    }
 
-        flashModelDetailsService.save(flashModel);
-        return "flashPage";
+    @PostMapping("save")
+    public String saveInfo(@ModelAttribute("flash") FlashModel theFlashModel){
+
+        theFlashModel.setPassword(theFlashModel.getPassword());
+        theFlashModel.setAccountNonExpired(true);
+        theFlashModel.setAccountNonLocked(true);
+        theFlashModel.setCredentialsNonExpired(true);
+        theFlashModel.setEnabled(true);
+
+        flashModelDetailsService.save(theFlashModel);
+
+        return"flashPage";
     }
 
 }

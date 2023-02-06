@@ -46,5 +46,16 @@ public class FlashModelDetailsService implements UserDetailsService {
         return flashModelDAO.findById(id);
     }
 
+    public void updateInfo(Long id, FlashModel flashModel){
+        FlashModel toUpdate = flashModelDAO.findById(id);
+
+        if (flashModel.getName() != null) { toUpdate.setName(flashModel.getName()); }
+        if (flashModel.getUsername() != null) { toUpdate.setUsername(flashModel.getUsername()); }
+        //if (flashModel.getPassword() != null) { toUpdate.setPassword(flashModel.getPassword()); }
+
+        flashModelDAO.save(toUpdate);
+
+    }
+
 
 }

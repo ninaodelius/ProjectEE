@@ -30,11 +30,11 @@ public class AppSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
-                //.csrf().disable()
+                .csrf().disable()
                 .authorizeHttpRequests( requests -> {
                     requests.requestMatchers("/", "/login", "/signup", "/logout", "/static/**", "/save", "/find/**", "/weather").permitAll()
-                            .requestMatchers("/admin", "/delete").hasRole("ADMIN")
-                            .requestMatchers("/flash", "/delete","/save","/weather").hasRole("FLASH")
+                            .requestMatchers("/admin", "/delete", "/update").hasRole("ADMIN")
+                            .requestMatchers("/flash", "/delete","/save","/weather", "/update**").hasRole("FLASH")
                             .anyRequest()
                             .authenticated()
                             ;
