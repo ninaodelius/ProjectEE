@@ -8,12 +8,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "flashes")
-public class FlashModel implements UserDetails {
+public class FlashModel implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)

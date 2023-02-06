@@ -10,8 +10,6 @@ import se.nina.projectee.flash.FlashModel;
 import se.nina.projectee.flash.FlashModelDetailsService;
 import se.nina.projectee.flash.auth.FlashRoles;
 
-import java.util.List;
-
 @Controller
 //@CrossOrigin(value = "localhost:3000")
 public class AppController {
@@ -25,12 +23,6 @@ public class AppController {
         this.flashModelDetailsService = flashModelDetailsService;
         this.appPasswordConfig = appPasswordConfig;
     }
-
-    @GetMapping("/home")
-    public String displayHome(){
-        return "home";
-    }
-
 
 
     @GetMapping("/signup")
@@ -74,9 +66,7 @@ public class AppController {
     //@PreAuthorize("hasrole('ROLE_ADMIN')")
     public String displayAdmin(Model theModel){
 
-        List<FlashModel> theFlashes = flashModelDetailsService.findAll();
-
-        theModel.addAttribute("flashes", theFlashes);
+        theModel.addAttribute("flashes", flashModelDetailsService.findAll());
 
 
         return "adminPage";
@@ -102,12 +92,12 @@ public class AppController {
         return "redirect:/";
     }
 
-    @GetMapping("/flash/{id}")
-    public String displayFlashPage(@PathVariable("id") Long id, Model model){
-            FlashModel uModel = flashModelDetailsService.findById(id);
+    @GetMapping("/flash")
+    public String displayFlashPage(/*@RequestParam("id") Long id, Model model*/){
+            /*FlashModel uModel = flashModelDetailsService.findById(id);
 
              model.addAttribute("flashModel", uModel);
-
+*/
         return "flashPage";
     }
 

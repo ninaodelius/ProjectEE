@@ -9,7 +9,7 @@
 <body>
 <h1>Hello,  <div th:text="${#authentication.principal.name}"></div> </h1>
 
-<!---
+<!--
 <p>Update your info:</p>
 <form action="#" th:action="@{/save}"
       th:object="${flashmodel}" method="post">
@@ -19,14 +19,14 @@
     <input type="text" th:field="*{name}"
            class="form-control mb-4 col-4" placeholder="name">
     <input type="text" th:field="*{username}"
-           class="form-control mb-4 col-4" placeholder="email also used to sign in">
+           class="form-control mb-4 col-4" placeholder="email">
     <input type="text" th:field="*{password}"
            class="form-control mb-4 col-4" placeholder="password">
 
     <button type="submit" class="btn btn-info col-2">update my info</button>
 
-</form>
--->
+</form>-->
+
 <a th:href="@{/weather}"
    class="btn btn-primary btn-sm">
     weather</a>
@@ -41,6 +41,8 @@
 <form method="post" th:action="@{/logout}">
     <button class="btn btn-primary btn-sm" type="submit" value="Logout">log out</button>
 </form>
+<a th:href="@{/}">back to startpage</a>
+
 
 </body>
 </html>

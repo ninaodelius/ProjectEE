@@ -33,7 +33,7 @@ public class AppSecurityConfig {
                 //.csrf().disable()
                 .authorizeHttpRequests( requests -> {
                     requests.requestMatchers("/", "/login", "/signup", "/logout", "/static/**", "/save", "/find/**", "/weather").permitAll()
-                            .requestMatchers("/admin").hasRole("ADMIN")
+                            .requestMatchers("/admin", "/delete").hasRole("ADMIN")
                             .requestMatchers("/flash", "/delete","/save","/weather").hasRole("FLASH")
                             .anyRequest()
                             .authenticated()
@@ -52,7 +52,7 @@ public class AppSecurityConfig {
                 )
                 .logout( logout ->{
                             logout.logoutUrl("/logout")
-                                    .logoutSuccessUrl("/login")
+                                    .logoutSuccessUrl("/")
                                     .invalidateHttpSession(true)
                                     .clearAuthentication(true)
                                     .deleteCookies("remember-me-token", "JSESSIONID");

@@ -13,17 +13,33 @@
 <table>
     <tr>
         <th>Name</th>
-        <th>Username</th>
+        <th>Email</th>
     </tr>
     <tr th:each="flash : ${flashes}">
         <td th:text="${flash.name}"></td>
         <td th:text="${flash.username}"></td>
         <td th:text="${flash.authorities}"></td>
+        <td>
+
+
+       <span th:if="${#strings.contains(flash.authorities, 'ROLE_FLASH')}">
+
+            <a th:href="@{/delete(id=${flash.id})}"
+               class="btn btn-danger btn-sm"
+               onclick="if (!(confirm('Are you sure you want to delete this account?')))return false">
+    Delete
+</a>
+
+        </span>
+
+        </td>
     </tr>
 </table>
 
 <form method="post" th:action="@{/logout}">
     <button class="btn btn-primary btn-sm" type="submit" value="Logout">log out</button>
 </form>
+<a th:href="@{/}">back to startpage</a>
+
 </body>
 </html>

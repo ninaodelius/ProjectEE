@@ -2,9 +2,6 @@ package se.nina.projectee.flash.auth;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,10 +10,13 @@ import static se.nina.projectee.flash.auth.FlashPermissions.*;
 public enum FlashRoles {
     FLASH(Set.of(FLASH_READ)),
     ADMIN(Set.of(ADMIN_READ, ADMIN_WRITE));
+
     private final Set<FlashPermissions> permissions;
+
     FlashRoles(Set<FlashPermissions> permissions) {
         this.permissions = permissions;
     }
+
     public Set<FlashPermissions> getPermissions() {
         return permissions;
     }
