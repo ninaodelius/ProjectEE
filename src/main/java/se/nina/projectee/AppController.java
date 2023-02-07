@@ -9,7 +9,6 @@ import se.nina.projectee.flash.AppPasswordConfig;
 import se.nina.projectee.flash.FlashModel;
 import se.nina.projectee.flash.FlashModelDetailsService;
 import se.nina.projectee.flash.auth.FlashRoles;
-import se.nina.projectee.flash.weatherapi.Weather;
 import se.nina.projectee.flash.weatherapi.WeatherWebClient;
 
 @Controller
@@ -127,8 +126,7 @@ public class AppController {
     }
 
     @GetMapping("/fetchWeather")
-    public String fetchWeather(Model model, Weather weather){
-
+    public String fetchWeather(Model model){
 
         model.addAttribute("weather", weatherWebClient.fluxToList());
 

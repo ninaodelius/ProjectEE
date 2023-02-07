@@ -22,29 +22,14 @@ public class WeatherWebClient {
                     return weatherRequest;
                 });
         return weather;
-
     }
 
     public Flux<Weather> monoToFlux(){
-
         return getWeatherInfo().flux();
-
     }
 
     public List<Weather> fluxToList(){
     return monoToFlux().collectList().block();
     }
 
-    public Flux<Weather> getWeatherInfoFlux(){
-        Flux<Weather> weatherFlux = webClient
-                .get()
-                .uri("/fetchWeather")
-                .retrieve()
-                .bodyToFlux(Weather.class);
-                 weatherFlux.subscribe(System.out::println);
-        return weatherFlux;
-    }
-
-    // https://github.com/public-apis/public-apis#weather
-    // https://github.com/robertoduessmann/weather-api
 }
