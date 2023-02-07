@@ -9,6 +9,8 @@ import se.nina.projectee.flash.AppPasswordConfig;
 import se.nina.projectee.flash.FlashModel;
 import se.nina.projectee.flash.FlashModelDetailsService;
 import se.nina.projectee.flash.auth.FlashRoles;
+import se.nina.projectee.flash.weatherapi.Weather;
+import se.nina.projectee.flash.weatherapi.WeatherWebClient;
 
 @Controller
 //@CrossOrigin(value = "localhost:3000")
@@ -17,11 +19,13 @@ public class AppController {
 
     private final FlashModelDetailsService flashModelDetailsService;
     private final AppPasswordConfig appPasswordConfig;
+    private final WeatherWebClient weatherWebClient;
 
 
-    public AppController(FlashModelDetailsService flashModelDetailsService, AppPasswordConfig appPasswordConfig) {
+    public AppController(FlashModelDetailsService flashModelDetailsService, AppPasswordConfig appPasswordConfig, WeatherWebClient weatherWebClient) {
         this.flashModelDetailsService = flashModelDetailsService;
         this.appPasswordConfig = appPasswordConfig;
+        this.weatherWebClient = weatherWebClient;
     }
 
 
@@ -120,6 +124,21 @@ public class AppController {
         flashModelDetailsService.save(userToUpdate);
 
         return"flashPage";
+    }
+
+    @GetMapping("/fetchWeather")
+    public String fetchWeather(Model model, Weather weather){
+
+
+        model.addAttribute("weather", weatherWebClient.fluxToList());
+
+        return "weather";
+    }
+
+    @GetMapping("/")
+    public String showStartPage(Model model){
+        model.addAttribute("weather", weatherWebClient.fluxToList());
+        return "startpage";
     }
 
 }

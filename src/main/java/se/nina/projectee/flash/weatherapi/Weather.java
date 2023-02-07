@@ -7,6 +7,16 @@ public class Weather {
     private String description;
     //private String[] forecast;
 
+    public Weather(String temperature, String wind, String description) {
+        this.temperature = temperature;
+        this.wind = wind;
+        this.description = description;
+    }
+
+    public Weather() {
+
+    }
+
     public String getTemperature() {
         return temperature;
     }

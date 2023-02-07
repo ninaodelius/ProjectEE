@@ -10,6 +10,14 @@
 <body>
 <h1>This is home</h1>
 
+<table>
+    Todays weather:
+    <tr th:each= "weatherStat : ${weather}">
+        <td th:text="${weatherStat.temperature}"></td>
+        <td th:text="${weatherStat.wind}"></td>
+        <td th:text="${weatherStat.description}"></td>
+</table>
+
 <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
     <span th:case="${false}">
         User is not logged in
