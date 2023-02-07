@@ -9,18 +9,24 @@
 <body>
 
 <p>Update your info:</p>
-<form action="#" th:action="@{/save}"
+
+<form action="#" th:action="@{/updateById(id=${#authentication.principal.id})}"
       th:object="${flash}" method="post">
 
 
+    <p>name</p>
     <input type="text" th:field="*{name}"
-           class="form-control mb-4 col-4" >
+           class="form-control mb-4 col-4">
+    <p>email</p>
     <input type="text" th:field="*{username}"
            class="form-control mb-4 col-4">
-
+    <p>password</p>
+    <input type="text" th:field="*{password}"
+           class="form-control mb-4 col-4">
 
     <button type="submit" class="btn btn-info col-2">update my info</button>
 
 </form>
+<a th:href="@{/}">back to startpage</a>
 </body>
 </html>

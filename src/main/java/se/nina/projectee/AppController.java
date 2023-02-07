@@ -93,8 +93,8 @@ public class AppController {
     }
 
 
-    @GetMapping("/update")
-    public String updateInfo(@RequestParam("id")Long id, Model model){
+    @GetMapping("/showUpdate")
+    public String showInfo(@RequestParam("id")Long id, Model model){
 
         FlashModel theFlashModel = flashModelDetailsService.findById(id);
 
@@ -103,16 +103,21 @@ public class AppController {
         return "editFlash";
     }
 
-    @PostMapping("save")
-    public String saveInfo(@ModelAttribute("flash") FlashModel theFlashModel){
+    @PostMapping("/updateById")
+    public String saveInfo(@ModelAttribute("flash") FlashModel theFlashModel, Long id){
 
-        theFlashModel.setPassword(theFlashModel.getPassword());
-        theFlashModel.setAccountNonExpired(true);
-        theFlashModel.setAccountNonLocked(true);
-        theFlashModel.setCredentialsNonExpired(true);
-        theFlashModel.setEnabled(true);
+        FlashModel userToUpdate = findById(id);
 
-        flashModelDetailsService.save(theFlashModel);
+        if (theFlashModel.getName() != null) {userToUpdate.setName(theFlashModel.getName());}
+        if (theFlashModel.getUsername() != null) {userToUpdate.setUsername(theFlashModel.getUsername());}
+        if (theFlashModel.getPassword() != null) {userToUpdate.setPassword(theFlashModel.getPassword());}
+
+        userToUpdate.setAccountNonExpired(true);
+        userToUpdate.setAccountNonLocked(true);
+        userToUpdate.setCredentialsNonExpired(true);
+        userToUpdate.setEnabled(true);
+
+        flashModelDetailsService.save(userToUpdate);
 
         return"flashPage";
     }
