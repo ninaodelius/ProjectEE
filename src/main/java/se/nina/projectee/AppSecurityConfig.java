@@ -33,8 +33,8 @@ public class AppSecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests( requests -> {
                     requests.requestMatchers("/", "/login", "/signup", "/logout", "/static/**", "/save", "/find/**", "/weather").permitAll()
-                            .requestMatchers("/admin", "/delete", "/update").hasRole("ADMIN")
-                            .requestMatchers("/flash", "/delete","/save","/fetchWeather", "/showInfo").hasRole("FLASH")
+                            .requestMatchers("/admin", "/delete", "/update**","/save").hasRole("ADMIN")
+                            .requestMatchers("/flash", "/delete","/save","/fetchWeather", "/showInfo", "/update**").hasRole("FLASH")
                             .anyRequest()
                             .authenticated()
                             ;

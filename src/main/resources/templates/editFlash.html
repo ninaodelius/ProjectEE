@@ -7,8 +7,9 @@
 
 </head>
 <body>
+<div class="jumbotron container text-center">
+    <h5 class="display-4">Update your info:</h5>
 
-<p>Update your info:</p>
 
 <form action="#" th:action="@{/updateById(id=${#authentication.principal.id})}"
       th:object="${flash}" method="post">
@@ -20,13 +21,19 @@
     <p>email</p>
     <input type="text" th:field="*{username}"
            class="form-control mb-4 col-4">
+   <!--
     <p>password</p>
     <input type="text" th:field="*{password}"
            class="form-control mb-4 col-4">
+           -->
 
-    <button type="submit" class="btn btn-info col-2">update my info</button>
+    <button type="submit" class="btn btn-outline-success">update my info</button>
 
 </form>
-<a th:href="@{/}">back to startpage</a>
+    <hr class="my-4">
+
+    <a th:href="@{/}" class="btn btn-outline-secondary">back to startpage</a>
+</div>
+
 </body>
 </html>

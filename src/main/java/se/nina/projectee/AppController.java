@@ -47,13 +47,13 @@ public class AppController {
         flashModel.setCredentialsNonExpired(true);
         flashModel.setEnabled(true);
 
-
-        String role = String.valueOf(flashModel.getAuthorities().iterator().next());
+        flashModel.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
+        /*String role = String.valueOf(flashModel.getAuthorities().iterator().next());
 
         switch (role) {
             case "ADMIN" ->  flashModel.setAuthorities(FlashRoles.ADMIN.getGrantedAuthorities());
             case "FLASH" -> flashModel.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
-        }
+        }*/
 
         flashModelDetailsService.save(flashModel);
 
@@ -62,9 +62,11 @@ public class AppController {
     }
 
     @GetMapping("/admin")
-    public String displayAdmin(Model theModel){
+    public String displayAdmin(Model theModel, FlashModel flashModel){
 
         theModel.addAttribute("flashes", flashModelDetailsService.findAll());
+
+
 
         return "adminPage";
     }
@@ -113,16 +115,23 @@ public class AppController {
 
         if (theFlashModel.getName() != null) {userToUpdate.setName(theFlashModel.getName());}
         if (theFlashModel.getUsername() != null) {userToUpdate.setUsername(theFlashModel.getUsername());}
-        if (theFlashModel.getPassword() != null) {userToUpdate.setPassword(theFlashModel.getPassword());}
+        //if (theFlashModel.getPassword() != null) {userToUpdate.setPassword(theFlashModel.getPassword());}
 
         userToUpdate.setAccountNonExpired(true);
         userToUpdate.setAccountNonLocked(true);
         userToUpdate.setCredentialsNonExpired(true);
         userToUpdate.setEnabled(true);
 
+        String role = String.valueOf(userToUpdate.getAuthorities().iterator().next());
+
+        switch (role) {
+            case "ADMIN" ->  userToUpdate.setAuthorities(FlashRoles.ADMIN.getGrantedAuthorities());
+            case "FLASH" -> userToUpdate.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
+        }
+
         flashModelDetailsService.save(userToUpdate);
 
-        return"flashPage";
+        return"redirect:/";
     }
 
     @GetMapping("/fetchWeather")

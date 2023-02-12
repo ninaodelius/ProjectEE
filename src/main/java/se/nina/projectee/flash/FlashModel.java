@@ -36,9 +36,6 @@ public class FlashModel implements UserDetails, Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<SimpleGrantedAuthority> authorities;
 
-    public Long getId() {
-        return id;
-    }
 
     private boolean isAccountNonExpired ;
     private boolean isAccountNonLocked ;
@@ -70,6 +67,9 @@ public class FlashModel implements UserDetails, Serializable {
         this.isEnabled = isEnabled;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     @Override
     public String getUsername() {
