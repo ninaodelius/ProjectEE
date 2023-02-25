@@ -47,13 +47,13 @@ public class AppController {
         flashModel.setCredentialsNonExpired(true);
         flashModel.setEnabled(true);
 
-        flashModel.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
-        /*String role = String.valueOf(flashModel.getAuthorities().iterator().next());
+        //flashModel.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
+        String role = String.valueOf(flashModel.getAuthorities().iterator().next());
 
         switch (role) {
-            case "ADMIN" ->  flashModel.setAuthorities(FlashRoles.ADMIN.getGrantedAuthorities());
-            case "FLASH" -> flashModel.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
-        }*/
+            case "Admin" -> flashModel.setAuthorities(FlashRoles.ADMIN.getGrantedAuthorities());
+            case "Flash" -> flashModel.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
+        }
 
         flashModelDetailsService.save(flashModel);
 
@@ -122,13 +122,14 @@ public class AppController {
         userToUpdate.setCredentialsNonExpired(true);
         userToUpdate.setEnabled(true);
 
-        String role = String.valueOf(userToUpdate.getAuthorities().iterator().next());
+        if(theFlashModel.getAuthorities() != null){
+            String role = String.valueOf(userToUpdate.getAuthorities().iterator().next());
 
         switch (role) {
-            case "ADMIN" ->  userToUpdate.setAuthorities(FlashRoles.ADMIN.getGrantedAuthorities());
-            case "FLASH" -> userToUpdate.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
+            case "Admin" ->  userToUpdate.setAuthorities(FlashRoles.ADMIN.getGrantedAuthorities());
+            case "Flash" -> userToUpdate.setAuthorities(FlashRoles.FLASH.getGrantedAuthorities());
         }
-
+        }
         flashModelDetailsService.save(userToUpdate);
 
         return"redirect:/";

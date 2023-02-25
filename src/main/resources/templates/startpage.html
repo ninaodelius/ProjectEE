@@ -64,11 +64,11 @@
 
                 <ul th:each= "weatherStat : ${weather}" class="list-group list-group-flush">
 
-                    <li th:text="'It is: '+${weatherStat.description}" class="list-group-item"></li>
+                    <li th:text="'It is: '+${weatherStat.description} ?: 'the api is down again'" class="list-group-item"></li>
 
-                    <li th:text="'Temperature: '+${weatherStat.temperature}" class="list-group-item"></li>
+                    <li th:text="'Temperature: '+${weatherStat.temperature} ?: 'yea its really down'" class="list-group-item"></li>
 
-                    <li th:text="'Wind: '+${weatherStat.wind}" class="list-group-item"></li>
+                    <li th:text="'Wind: '+${weatherStat.wind} ?: 'mb sorry'" class="list-group-item"></li>
 </ul>
 
 

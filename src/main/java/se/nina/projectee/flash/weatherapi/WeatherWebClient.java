@@ -13,6 +13,7 @@ public class WeatherWebClient {
     WebClient webClient = WebClient.create("https://goweather.herokuapp.com/weather/stockholm");
 
     public Mono<Weather> getWeatherInfo(){
+        try{
         Mono<Weather> weather = webClient
                 .get()
                 .retrieve()
@@ -21,7 +22,11 @@ public class WeatherWebClient {
                     System.out.println(weatherRequest);
                     return weatherRequest;
                 });
-        return weather;
+            return weather;
+        }catch(Error e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Flux<Weather> monoToFlux(){
